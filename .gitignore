@@ -1,0 +1,23 @@
+# Build directories
+build/
+cmake-build-*/
+
+# Nix
+result
+result-*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Compiled files
+*.o
+*.dylib
+*.so
+*.a
+
+# macOS
+.DS_Store
