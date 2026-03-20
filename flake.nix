@@ -2,11 +2,11 @@
   description = "Logos Counter Plugin";
 
   inputs = {
-    logos-cpp-sdk.url = "github:logos-co/logos-cpp-sdk";
-    nixpkgs.follows = "logos-cpp-sdk/nixpkgs";
+    logos-nix.url = "github:logos-co/logos-nix";
+    nixpkgs.follows = "logos-nix/nixpkgs";
   };
 
-  outputs = { self, nixpkgs, logos-cpp-sdk }:
+  outputs = { self, logos-nix, nixpkgs }:
     let
       systems = [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f {
