@@ -2,24 +2,19 @@
   "name": "counter",
   "version": "1.0.0",
   "description": "Simple counter plugin for demonstration purposes",
-  "author": "Logos Core Team",
-  "type": "ui",
-  "main": "counter",
+  "type": "ui_qml",
+  "main": "counter_plugin",
+  "view": "qml/Counter.qml",
   "dependencies": [],
   "category": "misc",
-  "build": {
-    "type": "cmake",
-    "files": [
-      "src/counter_plugin.cpp",
-      "src/counter_plugin.h",
-      "src/counterview.cpp",
-      "src/counterview.h",
-      "src/counter_resources.qrc"
-    ]
-  },
-  "capabilities": [
-    "ui_components",
-    "demo"
-  ],
-  "icon": ":/icons/counter.png"
-} 
+  "icon": "src/icons/counter.png",
+
+  "nix": {
+    "packages": {
+      "build": [],
+      "runtime": ["qt6.qtdeclarative", "zstd", "krb5", "abseil-cpp"]
+    },
+    "external_libraries": [],
+    "cmake": { "find_packages": [], "extra_sources": [] }
+  }
+}

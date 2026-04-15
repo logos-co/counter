@@ -1,0 +1,6 @@
+class Counter
+{
+    PROP(int count READONLY)
+
+    SLOT(void increment())
+}

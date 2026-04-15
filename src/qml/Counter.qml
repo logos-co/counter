@@ -3,12 +3,20 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Item {
+    id: root
+
+    QtObject {
+        id: d
+        readonly property var backend: typeof logos !== "undefined" && logos ? logos.module(mod) : null
+        readonly property string mod: "counter"
+    }
+
     ColumnLayout {
         anchors.centerIn: parent
         spacing: 16
 
         Text {
-            text: counterBackend.count
+            text: d.backend ? d.backend.count : "0"
             font.pixelSize: 48
             font.weight: Font.Bold
             color: "#333333"
@@ -37,7 +45,7 @@ Item {
                 border.width: 1
             }
 
-            onClicked: counterBackend.increment()
+            onClicked: if (d.backend) d.backend.increment()
         }
     }
 }
