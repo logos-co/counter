@@ -1,59 +1,19 @@
-cmake_minimum_required(VERSION 3.16)
-project(CounterPlugin VERSION 1.0.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.14)
+project(CounterPlugin LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
-
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Quick Qml QuickWidgets QuickControls2)
-
-# Try to find the component-interfaces package first
-find_package(component-interfaces QUIET)
-
-# If not found, use the local interfaces folder
-if(NOT component-interfaces_FOUND)
-    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/interfaces)
-    add_library(component-interfaces INTERFACE)
-    target_include_directories(component-interfaces INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/interfaces)
-endif()
-
-set(SOURCES
-    CounterComponent.cpp
-    CounterBackend.cpp
-    counter_resources.qrc
-)
-
-add_library(counter SHARED ${SOURCES})
-
-target_include_directories(counter PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/interfaces
-)
-
-target_link_libraries(counter 
-    PRIVATE 
-        Qt6::Core 
-        Qt6::Widgets
-        Qt6::Quick
-        Qt6::Qml
-        Qt6::QuickWidgets
-        Qt6::QuickControls2
-        component-interfaces
-)
-
-# For macOS, we need to set the bundle properties
-if(APPLE)
-    set_target_properties(counter PROPERTIES
-        BUNDLE FALSE
-        FRAMEWORK FALSE
-        PREFIX ""
-        SUFFIX ".dylib"
-    )
+if(DEFINED ENV{LOGOS_MODULE_BUILDER_ROOT})
+    include($ENV{LOGOS_MODULE_BUILDER_ROOT}/cmake/LogosModule.cmake)
 else()
-    set_target_properties(counter PROPERTIES
-        PREFIX ""
-        SUFFIX ".so"
-    )
+    message(FATAL_ERROR "LogosModule.cmake not found. Set LOGOS_MODULE_BUILDER_ROOT.")
 endif()
+
+logos_module(
+    NAME counter
+    REP_FILE src/counter.rep
+    SOURCES
+        src/counter_interface.h
+        src/counter_plugin.h
+        src/counter_plugin.cpp
+        src/CounterBackend.h
+        src/CounterBackend.cpp
+)
