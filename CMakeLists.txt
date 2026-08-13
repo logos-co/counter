@@ -11,9 +11,8 @@ logos_module(
     NAME counter
     REP_FILE src/counter.rep
     SOURCES
-        src/counter_interface.h
-        src/counter_plugin.h
-        src/counter_plugin.cpp
         src/CounterBackend.h
         src/CounterBackend.cpp
+    INCLUDE_DIRS
+        src
 )

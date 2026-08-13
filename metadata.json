@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "description": "Simple counter plugin for demonstration purposes",
   "type": "ui_qml",
+  "interface": "universal",
   "main": "counter_plugin",
   "view": "qml/Counter.qml",
   "dependencies": [],
   "category": "misc",
   "icon": "src/icons/counter.png",
+  "codegen": {
+    "rep": "src/counter.rep",
+    "backend_class": "CounterBackend",
+    "backend_header": "CounterBackend.h"
+  },
 
   "nix": {
     "packages": {
